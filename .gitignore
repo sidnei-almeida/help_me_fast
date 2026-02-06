@@ -1,0 +1,32 @@
+# Dependências
+node_modules/
+
+# Build / output
+dist/
+dist-electron/
+out/
+*.local
+
+# Logs e caches
+*.log
+npm-debug.log*
+.npm
+.cache
+.vite
+
+# Sistema e IDE
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+*.sublime-*
+
+# Variáveis de ambiente
+.env
+.env.local
+.env.*.local
+
+# Electron (opcional; app.asar em release/ pode ser commitado)
+# *.asar
