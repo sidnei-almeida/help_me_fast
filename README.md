@@ -1,6 +1,10 @@
 # Help Me Fast!
 
-A desktop application for Linux that supports prolonged fasting through a metabolic timer, progress tracking, and a neuroscience-based pattern-interruption flow. Built for developers and power users on tiling window managers (e.g. Hyprland, Sway, i3) and standard desktop environments (GNOME, KDE, XFCE). Data stays on your machine in a user-chosen folder (BYOS).
+![Linux](https://img.shields.io/badge/Platform-Linux-1793D1?logo=linux) ![Electron](https://img.shields.io/badge/Electron-28-47848F?logo=electron) ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react) ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript)
+
+> **Prolonged fasting companion for Linux** — metabolic timer, progress tracking, and neuroscience-based pattern interruption. Data stays on your machine (BYOS).
+
+A desktop application for Linux built for developers and power users on tiling window managers (e.g. Hyprland, Sway, i3) and standard desktop environments (GNOME, KDE, XFCE). You choose a “vault” folder; all config, profile, and history live there. No cloud, no account.
 
 ---
 
@@ -17,7 +21,7 @@ The UI is a light, minimal desktop layout: sidebar navigation, frameless window 
 
 ---
 
-## Features
+## ✨ Features
 
 - **Timer** — Countdown from your chosen fast length (presets and custom hours). Persists across restarts via absolute timestamps.
 - **Metabolic wheel** — Single continuous gradient (gold to orange) that “empties” as time elapses; phase ticks and optional profile avatar as progress indicator; hover tooltips with phase descriptions and electrolyte tips.
@@ -29,7 +33,7 @@ The UI is a light, minimal desktop layout: sidebar navigation, frameless window 
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
 
 | Layer        | Choice                |
 |-------------|------------------------|
@@ -45,7 +49,7 @@ The UI is a light, minimal desktop layout: sidebar navigation, frameless window 
 
 ---
 
-## Data and Vault (BYOS)
+## 📁 Data and Vault (BYOS)
 
 You choose a directory as the “vault”. The app creates and maintains:
 
@@ -62,7 +66,7 @@ Global app settings (e.g. last used vault path) live in Electron’s `userData`,
 
 ---
 
-## Requirements
+## 📌 Requirements
 
 - **Node.js** 18+ (20 LTS recommended)
 - **npm** (or compatible package manager)
@@ -72,7 +76,7 @@ Global app settings (e.g. last used vault path) live in Electron’s `userData`,
 
 ---
 
-## Installation
+## 📦 Installation
 
 ### Cloning the repository (Git LFS)
 
@@ -89,7 +93,7 @@ git lfs install
 **Clone and pull large files:**
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/sidnei-almeida/help_me_fast.git
 cd help_me_fast
 git lfs pull
 ```
@@ -101,7 +105,7 @@ After `git lfs pull`, `release/Help Me Faast-*.AppImage` and `release/linux-unpa
 ### From source (development)
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/sidnei-almeida/help_me_fast.git
 cd help_me_fast
 git lfs pull    # optional if you only want to run in dev mode
 npm install
@@ -123,7 +127,7 @@ Follow the menu to install dependencies, build the app, and optionally build the
 
 ---
 
-## Development
+## 🧑‍💻 Development
 
 ```bash
 npm run electron:dev
@@ -136,7 +140,7 @@ This builds the Electron main and preload scripts, starts the Vite dev server (p
 
 ---
 
-## Building for production
+## 🏗️ Building for production
 
 ```bash
 npm run electron:build
@@ -155,7 +159,7 @@ Build uses `build/icons/` for the app icon (multiple PNG sizes). `productName` i
 
 ---
 
-## Project structure
+## 📂 Project structure
 
 ```
 help_me_fast/
@@ -207,6 +211,15 @@ help_me_fast/
 
 ---
 
-## License
+## 👤 Author
+
+**Sidnei Almeida**
+
+- GitHub: [@sidnei-almeida](https://github.com/sidnei-almeida)
+- LinkedIn: [Sidnei Almeida](https://www.linkedin.com/in/saaelmeida93/)
+
+---
+
+## 📄 License
 
 MIT.
