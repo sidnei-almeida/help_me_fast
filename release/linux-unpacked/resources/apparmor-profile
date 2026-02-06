@@ -1,7 +1,7 @@
 abi <abi/4.0>,
 include <tunables/global>
 
-profile "help-me-faast" "/opt/Help Me Faast/help-me-faast" flags=(unconfined) {
+profile "help-me-faast" "/opt/Help Me Fast/help-me-faast" flags=(unconfined) {
   userns,
 
   # Site-specific additions and overrides. See local/README for details.

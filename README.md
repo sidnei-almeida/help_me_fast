@@ -68,23 +68,51 @@ Global app settings (e.g. last used vault path) live in Electron’s `userData`,
 - **npm** (or compatible package manager)
 - **Linux** (primary target; Wayland and X11 supported)
 - For running the built app: GTK3, libnotify, NSS, libxss, libsecret, etc. (see `install.sh` for distro-specific lists)
+- **Git LFS** — required to download the pre-built AppImage and release binaries from the repo (see below).
 
 ---
 
 ## Installation
 
+### Cloning the repository (Git LFS)
+
+This repo uses [Git LFS](https://git-lfs.com/) for large files: the AppImage and the Linux unpacked binary in `release/`. Without LFS you get small pointer files instead of the real binaries, and the installer won’t have a working AppImage.
+
+**One-time setup (if you don’t have Git LFS yet):**
+
+```bash
+# Install Git LFS (e.g. on Arch/CachyOS)
+sudo pacman -S git-lfs
+git lfs install
+```
+
+**Clone and pull large files:**
+
+```bash
+git clone <repository-url>
+cd help_me_fast
+git lfs pull
+```
+
+After `git lfs pull`, `release/Help Me Faast-*.AppImage` and `release/linux-unpacked/help-me-faast` will be the real files. You can then run `./install.sh` (option 3 or 1) to create the desktop entry and install icons.
+
+---
+
 ### From source (development)
 
 ```bash
 git clone <repository-url>
-cd help_me_faast
+cd help_me_fast
+git lfs pull    # optional if you only want to run in dev mode
 npm install
 npm run electron:dev
 ```
 
 ### Linux: one-shot installer (recommended)
 
-The repository includes an installer script that detects distro (Arch, Debian/Ubuntu, Fedora/RHEL, openSUSE, Void), installs system and Node dependencies, builds the app, and optionally builds a package (AppImage, deb, rpm, or pacman) and creates a desktop entry with icons:
+The repository includes an installer script that detects distro (Arch, Debian/Ubuntu, Fedora/RHEL, openSUSE, Void), installs system and Node dependencies, builds the app, and optionally builds a package (AppImage, deb, rpm, or pacman) and creates a desktop entry with icons.
+
+**If you cloned the repo:** make sure you ran `git lfs pull` so the AppImage in `release/` is the real file. Then:
 
 ```bash
 chmod +x install.sh
@@ -130,7 +158,7 @@ Build uses `build/icons/` for the app icon (multiple PNG sizes). `productName` i
 ## Project structure
 
 ```
-help_me_faast/
+help_me_fast/
 ├── electron/
 │   ├── main.ts          # Main process: window, IPC (vault, history, settings, dialogs, window controls)
 │   └── preload.ts       # contextBridge API for renderer
@@ -172,6 +200,7 @@ help_me_faast/
 │   └── icons/           # PNG icons for electron-builder and install.sh
 ├── build-electron.js    # esbuild config for main + preload
 ├── install.sh           # Linux installer and desktop entry
+├── uninstall.sh         # Remove menu entry and icons (for re-testing install)
 ├── package.json
 └── vite.config.ts
 ```

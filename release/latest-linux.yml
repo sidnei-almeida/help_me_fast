@@ -1,9 +1,9 @@
 version: 1.0.0
 files:
-  - url: Help-Me-Faast-1.0.0-x86_64.AppImage
-    sha512: oV6L80S6ciGmSrqWyuUuESz+w2VjA19OXiMj+ILrMNBHxJxUw5+zzqUB+CSq9vWHfa9jyK5N1bF4jYfmMPbBDw==
-    size: 113128223
-    blockMapSize: 119603
-path: Help-Me-Faast-1.0.0-x86_64.AppImage
-sha512: oV6L80S6ciGmSrqWyuUuESz+w2VjA19OXiMj+ILrMNBHxJxUw5+zzqUB+CSq9vWHfa9jyK5N1bF4jYfmMPbBDw==
-releaseDate: '2026-02-06T18:46:28.706Z'
+  - url: Help-Me-Fast-1.0.0-x86_64.AppImage
+    sha512: M2APdH0vdcJBNn/O2kAi+RiWrzwGPggW2nDTJrY2f7yKUkc5AXzUcyk3rZGu9d7jkiAesPWSaWDXzL/j1FaRfA==
+    size: 113128260
+    blockMapSize: 119640
+path: Help-Me-Fast-1.0.0-x86_64.AppImage
+sha512: M2APdH0vdcJBNn/O2kAi+RiWrzwGPggW2nDTJrY2f7yKUkc5AXzUcyk3rZGu9d7jkiAesPWSaWDXzL/j1FaRfA==
+releaseDate: '2026-02-06T19:22:20.088Z'

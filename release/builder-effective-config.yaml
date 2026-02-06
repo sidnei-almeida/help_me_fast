@@ -2,7 +2,7 @@ directories:
   output: release
   buildResources: build
 appId: com.helpmefaast.app
-productName: Help Me Faast
+productName: Help Me Fast
 linux:
   target:
     - AppImage
