@@ -1,0 +1,41 @@
+directories:
+  output: release
+  buildResources: build
+appId: com.helpmefaast.app
+productName: Help Me Faast
+linux:
+  target:
+    - AppImage
+    - deb
+    - rpm
+    - pacman
+  category: Utility;Health
+  icon: build/icons
+  synopsis: Prolonged fasting companion for Linux
+  description: A desktop application to help you stay focused during extended fasting. Features a metabolic wheel, electrolyte tips, progress tracking, and neuroscience-based hunger management.
+appImage:
+  artifactName: ${productName}-${version}-${arch}.AppImage
+deb:
+  artifactName: ${productName}-${version}-${arch}.deb
+  depends:
+    - libgtk-3-0
+    - libnotify4
+    - libnss3
+    - libxss1
+    - libxtst6
+    - xdg-utils
+    - libatspi2.0-0
+    - libuuid1
+    - libsecret-1-0
+rpm:
+  artifactName: ${productName}-${version}-${arch}.rpm
+pacman:
+  artifactName: ${productName}-${version}-${arch}.pkg.tar.zst
+files:
+  - filter:
+      - dist/**/*
+      - dist-electron/**/*
+      - package.json
+extraResources: []
+asar: true
+electronVersion: 28.3.3

@@ -1,2 +1,4 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+*.AppImage filter=lfs diff=lfs merge=lfs -text
+release/linux-unpacked/help-me-faast filter=lfs diff=lfs merge=lfs -text
