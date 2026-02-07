@@ -8,6 +8,10 @@
 
 I'm a fasting advocate and I work on my PC all day; my Android is broken, so I couldn't rely on a phone app. I built this for myself and for anyone who wants something like it — a simple, local-first fasting companion on the desktop.
 
+<p align="center">
+  <img src="Fasting.png" width="600" alt="Help Me Fast — Dashboard" />
+</p>
+
 A desktop application for Linux built for developers and power users on tiling window managers (e.g. Hyprland, Sway, i3) and standard desktop environments (GNOME, KDE, XFCE). You choose a “vault” folder; all config, profile, and history live there. No cloud, no account.
 
 ---
@@ -25,10 +29,9 @@ The UI is a light, minimal desktop layout: sidebar navigation, frameless window 
 
 ---
 
-## 📸 Screenshots
+## 📸 More Screenshots
 
 <p align="center">
-  <img src="Fasting.png" width="280" alt="Help Me Fast — Dashboard" />
   <img src="Fasting2.png" width="280" alt="Help Me Fast — Timer" />
   <img src="Fasting3.png" width="280" alt="Help Me Fast — History" />
 </p>
