@@ -290,11 +290,20 @@ export function MetabolicArc({
     [maxH],
   )
 
-  // ── Single gradient arc path ──────────────────────────────────
-  const gradientArc = useMemo(
-    () => arcPath(CX, CY, R, ARC_START, ARC_START + ARC_SPAN),
-    [CX, CY, R],
-  )
+  const endAngle = ARC_START + ARC_SPAN
+
+  // Knob angle: idle = start of arc; active = current progress
+  const knobAngle = isActive ? hourToAngle(Math.min(hours, maxH)) : ARC_START
+  const knob = polar(CX, CY, R, knobAngle)
+
+  // ── Arc paths: segmented "fuse burning" (past gray + future orange) ──
+  const fullArcPath = arcPath(CX, CY, R, ARC_START, endAngle)
+  const pastArcPath = isActive && progress > 0.001
+    ? arcPath(CX, CY, R, ARC_START, knobAngle)
+    : null
+  const futureArcPath = isActive && progress < 0.999
+    ? arcPath(CX, CY, R, knobAngle, endAngle)
+    : null
 
   // ── Phase markers (ticks + labels + hover zones) ──────────────
   const phaseMarkers = useMemo(() => {
@@ -345,10 +354,6 @@ export function MetabolicArc({
     }
     return markers
   }, [maxH, CX, CY, R, hourToAngle])
-
-  // ── Progress knob position ────────────────────────────────────
-  const knobAngle = hourToAngle(Math.min(hours, maxH))
-  const knob = polar(CX, CY, R, knobAngle)
 
   // ── Current stage ─────────────────────────────────────────────
   const currentStage =
@@ -409,15 +414,38 @@ export function MetabolicArc({
           </filter>
         </defs>
 
-        {/* ═══ LAYER 1: Single gradient arc (the full "fuel gauge") ═══ */}
-        <path
-          d={gradientArc}
-          fill="none"
-          stroke="url(#brandGradient)"
-          strokeWidth={STROKE_W}
-          strokeLinecap="round"
-          opacity={isActive ? 1 : 0.8}
-        />
+        {/* ═══ LAYER 1: Arc(s) — "Fuse Burning" two-path approach ═══ */}
+        {/* IDLE: single gray track. ACTIVE: past (gray) + future (orange) — same strokeWidth */}
+        {!isActive ? (
+          <path
+            d={fullArcPath}
+            fill="none"
+            stroke="#E2E8F0"
+            strokeWidth={STROKE_W}
+            strokeLinecap="round"
+          />
+        ) : (
+          <>
+            {pastArcPath && (
+              <path
+                d={pastArcPath}
+                fill="none"
+                stroke="#E2E8F0"
+                strokeWidth={STROKE_W}
+                strokeLinecap="round"
+              />
+            )}
+            {futureArcPath && (
+              <path
+                d={futureArcPath}
+                fill="none"
+                stroke="url(#brandGradient)"
+                strokeWidth={STROKE_W}
+                strokeLinecap="round"
+              />
+            )}
+          </>
+        )}
 
         {/* ═══ LAYER 2: Phase tick marks (clean, no text) ═══ */}
         {phaseMarkers.map((m, i) => {
@@ -434,60 +462,42 @@ export function MetabolicArc({
           )
         })}
 
-        {/* ═══ LAYER 3: Gray "emptying" mask ═══ */}
-        {/* Uses strokeLinecap="butt" to avoid a round-cap artifact at the
-            leading edge of the mask when progress is very small */}
-        {isActive && progress > 0.005 && (
-          <path
-            d={gradientArc}
-            fill="none"
-            stroke="#F5F6FA"
-            strokeWidth={STROKE_W + 6}
-            strokeLinecap="butt"
-            pathLength={1}
-            strokeDasharray={`${progress} ${1 - progress}`}
-            style={{ transition: 'stroke-dasharray 0.5s ease' }}
-          />
-        )}
-
-        {/* ═══ LAYER 4: Progress Knob — Avatar or Circle ═══ */}
-        {isActive && (
-          userAvatar ? (
-            <g filter="url(#avatarKnobShadow)" transform={`translate(${knob.x}, ${knob.y})`}>
-              {/* White border ring */}
-              <circle cx={0} cy={0} r={16} fill="#FFFFFF" stroke="#E17055" strokeWidth={2.5} />
-              {/* Clipped avatar image */}
-              <image
-                href={userAvatar}
-                x={-14}
-                y={-14}
-                width={28}
-                height={28}
-                clipPath="url(#avatarKnobClip)"
-                preserveAspectRatio="xMidYMid slice"
-              />
-              {/* Subtle pulse animation on the border */}
-              <circle cx={0} cy={0} r={16} fill="none" stroke="#E17055" strokeWidth={2} opacity={0.6}>
-                <animate attributeName="r" values="16;19;16" dur="2.5s" repeatCount="indefinite" />
-                <animate attributeName="opacity" values="0.6;0;0.6" dur="2.5s" repeatCount="indefinite" />
-              </circle>
-            </g>
-          ) : (
-            <g filter="url(#knobGlow)">
-              <circle
-                cx={knob.x}
-                cy={knob.y}
-                r={9}
-                fill="#FFFFFF"
-                stroke="#E17055"
-                strokeWidth={2}
-              >
-                <animate attributeName="r" values="8;10;8" dur="2.5s" repeatCount="indefinite" />
-                <animate attributeName="opacity" values="1;0.85;1" dur="2.5s" repeatCount="indefinite" />
-              </circle>
-              <circle cx={knob.x} cy={knob.y} r={3.5} fill="#E17055" />
-            </g>
-          )
+        {/* ═══ LAYER 4: Progress Knob — Avatar or Circle (always visible) ═══ */}
+        {userAvatar ? (
+          <g filter="url(#avatarKnobShadow)" transform={`translate(${knob.x}, ${knob.y})`}>
+            {/* White border ring */}
+            <circle cx={0} cy={0} r={16} fill="#FFFFFF" stroke="#E17055" strokeWidth={2.5} />
+            {/* Clipped avatar image */}
+            <image
+              href={userAvatar}
+              x={-14}
+              y={-14}
+              width={28}
+              height={28}
+              clipPath="url(#avatarKnobClip)"
+              preserveAspectRatio="xMidYMid slice"
+            />
+            {/* Subtle pulse animation on the border */}
+            <circle cx={0} cy={0} r={16} fill="none" stroke="#E17055" strokeWidth={2} opacity={0.6}>
+              <animate attributeName="r" values="16;19;16" dur="2.5s" repeatCount="indefinite" />
+              <animate attributeName="opacity" values="0.6;0;0.6" dur="2.5s" repeatCount="indefinite" />
+            </circle>
+          </g>
+        ) : (
+          <g filter="url(#knobGlow)">
+            <circle
+              cx={knob.x}
+              cy={knob.y}
+              r={9}
+              fill="#FFFFFF"
+              stroke="#E17055"
+              strokeWidth={2}
+            >
+              <animate attributeName="r" values="8;10;8" dur="2.5s" repeatCount="indefinite" />
+              <animate attributeName="opacity" values="1;0.85;1" dur="2.5s" repeatCount="indefinite" />
+            </circle>
+            <circle cx={knob.x} cy={knob.y} r={3.5} fill="#E17055" />
+          </g>
         )}
 
         {/* ═══ LAYER 5: Invisible hover hit-areas ═══ */}
