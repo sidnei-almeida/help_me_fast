@@ -1,3 +1,5 @@
+<img src="build/icons/128x128.png" width="64" height="64" alt="Help Me Fast" align="left" style="margin-right: 12px;" />
+
 # Help Me Fast!
 
 ![Linux](https://img.shields.io/badge/Platform-Linux-1793D1?logo=linux) ![Electron](https://img.shields.io/badge/Electron-28-47848F?logo=electron) ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react) ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript)
@@ -20,6 +22,16 @@ Help Me Fast is not a simple countdown. It combines:
 - **Local-first storage** — You choose a “vault” folder; all config, profile, and history live there as readable JSON. No cloud, no account.
 
 The UI is a light, minimal desktop layout: sidebar navigation, frameless window with custom controls, and a central metabolic wheel. Supported on X11 and Wayland.
+
+---
+
+## 📸 Screenshots
+
+<p align="center">
+  <img src="Fasting.png" width="280" alt="Help Me Fast — Dashboard" />
+  <img src="Fasting2.png" width="280" alt="Help Me Fast — Timer" />
+  <img src="Fasting3.png" width="280" alt="Help Me Fast — History" />
+</p>
 
 ---
 
