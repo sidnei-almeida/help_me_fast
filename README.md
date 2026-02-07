@@ -4,6 +4,8 @@
 
 > **Prolonged fasting companion for Linux** — metabolic timer, progress tracking, and neuroscience-based pattern interruption. Data stays on your machine (BYOS).
 
+I'm a fasting advocate and I work on my PC all day; my Android is broken, so I couldn't rely on a phone app. I built this for myself and for anyone who wants something like it — a simple, local-first fasting companion on the desktop.
+
 A desktop application for Linux built for developers and power users on tiling window managers (e.g. Hyprland, Sway, i3) and standard desktop environments (GNOME, KDE, XFCE). You choose a “vault” folder; all config, profile, and history live there. No cloud, no account.
 
 ---
