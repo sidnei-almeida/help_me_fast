@@ -174,6 +174,14 @@ Targets:
 
 Build uses `build/icons/` for the app icon (multiple PNG sizes). `productName` is “Help Me Fast”.
 
+### Reinstalled but still seeing the old version?
+
+If you uninstalled and installed again but the app still shows the old UI (e.g. old arc): the menu entry may be launching the wrong AppImage. In `release/` there can be an old file named **Help Me Faast** (typo) and the correct one **Help Me Fast**. The installer now prefers the correct name. To fix:
+
+1. Remove the old AppImage: `rm -f "release/Help Me Faast-"*.AppImage`
+2. Run `./install.sh` and choose option 3 (build + desktop entry) so the launcher points to **Help Me Fast**.
+3. Optionally clear the app config cache: `rm -rf ~/.config/help-me-faast`
+
 ---
 
 ## 📂 Project structure

@@ -350,8 +350,12 @@ install_icons() {
 create_desktop_entry() {
   header "Creating Desktop Entry"
 
+  # Prefer "Help Me Fast" (correct) over "Help Me Faast" (old typo) so new installs run the right build
   local APPIMAGE
-  APPIMAGE=$(find "$(pwd)/release" -name "*.AppImage" -type f 2>/dev/null | head -1)
+  APPIMAGE=$(find "$(pwd)/release" -name "Help Me Fast-*.AppImage" -type f 2>/dev/null | head -1)
+  if [ -z "$APPIMAGE" ]; then
+    APPIMAGE=$(find "$(pwd)/release" -name "*.AppImage" -type f 2>/dev/null | head -1)
+  fi
 
   if [ -z "$APPIMAGE" ]; then
     warn "No AppImage found in ./release/ — skipping desktop entry"
@@ -493,7 +497,8 @@ main() {
 
   if [ -d "release" ]; then
     local APPIMAGE
-    APPIMAGE=$(find "$(pwd)/release" -name "*.AppImage" -type f 2>/dev/null | head -1)
+    APPIMAGE=$(find "$(pwd)/release" -name "Help Me Fast-*.AppImage" -type f 2>/dev/null | head -1)
+    [ -z "$APPIMAGE" ] && APPIMAGE=$(find "$(pwd)/release" -name "*.AppImage" -type f 2>/dev/null | head -1)
     if [ -n "$APPIMAGE" ]; then
       echo -e "  ${GREEN}To run the built app:${NC}"
       echo -e "    ${BOLD}${APPIMAGE}${NC}"
